@@ -1,0 +1,37 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "typescript",
+    "firebase",
+    "api",
+    "jest",
+    "babel",
+    "express"
+  ],
+  "author": "https://github.com/jhonataT",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.2",
+    "@babel/preset-typescript": "^7.24.7",
+    "@jest/types": "^29.6.3",
+    "@types/node": "^22.0.0",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "@swc/core": "^1.7.3",
+    "@types/jest": "^29.5.12",
+    "express": "^4.19.2"
+  }
+}
