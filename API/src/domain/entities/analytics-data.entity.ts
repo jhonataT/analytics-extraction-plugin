@@ -5,6 +5,7 @@ type AnalyticsDataProps = {
   os: string;
   sourceDomainUrl: string;
   themeChangeCount: number;
+  responsibleToken: string;
   createdAt?: Date;
 };
 
@@ -13,12 +14,12 @@ export class AnalyticsData extends Entity<AnalyticsDataProps> {
     super(props, id);
   };
 
-  static create(props: AnalyticsDataProps, id?: string) {
+  static async create(props: AnalyticsDataProps, id?: string): Promise<string>  {
     const analyticsData = new AnalyticsData({
       ...props,
       createdAt: props.createdAt ?? new Date()
     }, id);
 
-    return analyticsData;
+    return analyticsData._id;
   };
 };
