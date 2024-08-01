@@ -1,5 +1,6 @@
 import { AnalyticsData } from "../../../domain/entities/analytics-data.entity";
-import { ResponsibleTokenRepository } from "../../repositories/responsible-token-repository";
+import { IResponsibleTokenRepository } from "../../repositories/IResponsibleTokenRepository";
+import { IAnalyticsDataRepository } from "../../repositories/IAnalyticsDataRepository"; 
 
 type CreateAnalyticsDataRequest = {
   device: 'android' | 'ios' | 'desktop';
@@ -15,8 +16,9 @@ type CreateAnalyticsDataResponse = {
 
 export class CreateAnalyticsData {
   constructor(
-    private responsibleTokenRepository: ResponsibleTokenRepository,
-  ) {};
+    private responsibleTokenRepository: IResponsibleTokenRepository,
+    private analyticsDataRepository: IAnalyticsDataRepository
+  ) {}
 
   async execute({
     device,
@@ -24,14 +26,14 @@ export class CreateAnalyticsData {
     sourceDomainUrl,
     themeChangeCount,
     responsibleToken
-  }: CreateAnalyticsDataRequest): Promise<string> {
+  }: CreateAnalyticsDataRequest): Promise<CreateAnalyticsDataResponse> {
     const responsible = await this.responsibleTokenRepository.getResponsibleToken(responsibleToken);
 
-    if(!responsible) {
-      throw new Error('Responsible token is not valid!');
-    }
+    // if (!responsible) {
+    //   throw new Error('Responsible token is not valid!');
+    // }
 
-    const analyticsData = AnalyticsData.create({
+    const analyticsData = await AnalyticsData.create({
       device,
       os,
       sourceDomainUrl,
@@ -39,6 +41,8 @@ export class CreateAnalyticsData {
       responsibleToken
     });
 
-    return analyticsData;
-  };
-};
+    const savedAnalyticsData = await this.analyticsDataRepository.save(analyticsData);
+
+    return { id: savedAnalyticsData.id };
+  }
+}
