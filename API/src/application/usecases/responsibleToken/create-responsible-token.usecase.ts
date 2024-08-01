@@ -1,4 +1,4 @@
-import { Responsible } from "../../../domain/entities/responsible.entity";
+import { Responsible } from "../../../domain/entities/responsible-token.entity";
 import { ResponsibleTokenRepository } from "../../repositories/responsible-token-repository";
 
 type CreateResponsibleTokenRequest = {

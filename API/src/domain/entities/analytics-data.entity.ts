@@ -14,12 +14,35 @@ export class AnalyticsData extends Entity<AnalyticsDataProps> {
     super(props, id);
   };
 
-  static async create(props: AnalyticsDataProps, id?: string): Promise<string>  {
+  toJSON() {
+    return {
+      device: this.props.device,
+      os: this.props.os,
+      sourceDomainUrl: this.props.sourceDomainUrl,
+      themeChangeCount: this.props.themeChangeCount,
+      responsibleToken: this.props.responsibleToken,
+      id: this.id,
+      createdAt: this.props.createdAt?.toISOString()
+    };
+  };
+
+  static fromJSON(json: any): AnalyticsData {
+    return new AnalyticsData({
+      device: json.device,
+      os: json.os,
+      sourceDomainUrl: json.sourceDomainUrl,
+      themeChangeCount: json.themeChangeCount,
+      responsibleToken: json.responsibleToken,
+      createdAt: json.createdAt ? new Date(json.createdAt) : undefined
+    }, json.id);
+  }
+
+  static async create(props: AnalyticsDataProps, id?: string): Promise<AnalyticsData>  {
     const analyticsData = new AnalyticsData({
       ...props,
       createdAt: props.createdAt ?? new Date()
     }, id);
 
-    return analyticsData._id;
+    return analyticsData;
   };
 };

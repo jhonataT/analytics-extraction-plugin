@@ -1,3 +1,3 @@
 export interface Api {
-  start(port: number): void;
+  startServer(port: number): void;
 };

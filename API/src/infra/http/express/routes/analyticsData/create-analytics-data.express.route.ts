@@ -21,28 +21,33 @@ export class CreateAnalyticsDataRoute implements Route {
     private readonly createAnalyticsDataService: CreateAnalyticsData,
   ) {};
 
-  public static create(createCollectService: CreateAnalyticsData) {
+  public static create(createAnalyticsDataService: CreateAnalyticsData) {
     return new CreateAnalyticsDataRoute(
       "/collect",
       HttpMethod.POST,
-      createCollectService
+      createAnalyticsDataService
     );
   };
 
   public getHandler(): (req: Request, res: Response) => Promise<void> {
     return async (req: Request, res: Response) => {
-      const body: CreateCollectRequestDto = req.body;
+      try {
+        const body: CreateCollectRequestDto = req.body;
+        const analyticsData: CreateCollectResponseDto = await this.createAnalyticsDataService.execute(body);
+        const responseBody = this.present(analyticsData);
 
-      const analyticsDataId: string =
-        await this.createAnalyticsDataService.execute(body);
-
-      const responseBody = this.present(analyticsDataId);
-      res.status(201).json(responseBody);
+        res.status(201).json(responseBody);
+      } catch (error) {
+        if (error instanceof Error)
+          res.status(400).json({ error: error.message });
+        else
+          res.status(400).json({ error: 'An unknown error occurred' });
+      }
     };
   };
 
-  private present(analyticsDataId: string): CreateCollectResponseDto {
-    return { id: analyticsDataId };
+  private present(analyticsData: CreateCollectResponseDto): CreateCollectResponseDto {
+    return { id: analyticsData.id };
   };
 
   public getPath(): string {
@@ -52,4 +57,4 @@ export class CreateAnalyticsDataRoute implements Route {
   public getMethod(): HttpMethod {
     return this.method;
   };
-};
+}

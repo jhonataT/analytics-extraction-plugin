@@ -1,5 +1,5 @@
-import { Responsible } from "../../../domain/entities/responsible.entity";
-import { InMemoryResponsibleRepository } from "../../../tests/repositories/in-memory-responsible-repository";
+import { Responsible } from "../../../domain/entities/responsible-token.entity";
+import { InMemoryResponsibleRepository } from "../../../tests/repositories/in-memory-responsible.repository";
 import { CreateAnalyticsData } from "./create-analytics-data.usecase";
 
 describe('Create analytics data use case', () => {
