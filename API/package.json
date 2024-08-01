@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts",
-  "type": "module",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "dev": "nodemon src/index.ts"
   },
   "keywords": [
     "typescript",
@@ -13,7 +13,9 @@
     "api",
     "jest",
     "babel",
-    "express"
+    "express",
+    "cors",
+    "rate-limiter"
   ],
   "author": "https://github.com/jhonataT",
   "license": "MIT",
@@ -22,17 +24,24 @@
     "@babel/preset-env": "^7.25.2",
     "@babel/preset-typescript": "^7.24.7",
     "@jest/types": "^29.6.3",
+    "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
+    "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^22.0.0",
     "babel-jest": "^29.7.0",
     "jest": "^29.7.0",
+    "nodemon": "^3.1.4",
     "ts-jest": "^29.2.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "@swc/core": "^1.7.3",
-    "@types/jest": "^29.5.12",
-    "express": "^4.19.2"
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "firebase-admin": "^12.3.0",
+    "jsonwebtoken": "^9.0.2",
+    "rate-limiter-flexible": "^5.0.3"
   }
 }
