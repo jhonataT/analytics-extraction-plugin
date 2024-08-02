@@ -1,16 +1,16 @@
+import { Button } from '../../components/Button';
 import { getAvatarName } from '../../core/utils/getAvatarName';
 
 import AvatarHugo from '../../assets/Images/hugo_avatar.webp';
 import AvatarMaya from '../../assets/Images/maya_avatar.webp';
 import { AvatarImg, ConicGradient, Container, Content, HighlightText, Section, Title } from "./styles";
-import { Button } from '../../components/Button';
 
 interface HomeScreenProps {
   currentTheme: 'light' | 'dark';
 };
 
 export const HomeScreen = ({ currentTheme }: HomeScreenProps) => {
-  return <Container>
+  return <Container id='inicio'>
     <ConicGradient/>
     <Section>
       <Content>

@@ -40,21 +40,7 @@ export const Global = createGlobalStyle<{ theme?: ThemeColors }>`
 
   a {
     text-decoration: none;
-    color: ${({ theme }) => theme.highlight_text_color};
+    color: ${({ theme }) => theme.text_color};
     cursor: pointer;
-  }
-
-  h1 {
-    font-size: 48px;
-    color: ${({ theme }) => theme.highlight_text_color}; 
-  }
-
-  p {
-    font-size: 15px;
-    font-weight: 300;
-  }
-
-  li {
-    list-style-type: none;
   }
 `;
