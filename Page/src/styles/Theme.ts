@@ -23,7 +23,7 @@ export const theme: Theme = {
 
     text_color: '#333333',
     highlight_text_color: '#f06f06',
-    neutral_text_color: '#c4c4c4'
+    neutral_text_color: '#818181'
   },
   dark: {
     background_color: '#333333',

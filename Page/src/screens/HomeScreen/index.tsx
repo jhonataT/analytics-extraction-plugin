@@ -1,9 +1,17 @@
 import { Button } from '../../components/Button';
+import { Container } from '../../components/Container';
 import { getAvatarName } from '../../core/utils/getAvatarName';
 
 import AvatarHugo from '../../assets/Images/hugo_avatar.webp';
 import AvatarMaya from '../../assets/Images/maya_avatar.webp';
-import { AvatarImg, ConicGradient, Container, Content, HighlightText, Section, Title } from "./styles";
+import {
+  AvatarImg,
+  ConicGradient,
+  Content,
+  HighlightText,
+  Title
+} from "./styles";
+import { Section } from '../../components/Section';
 
 interface HomeScreenProps {
   currentTheme: 'light' | 'dark';

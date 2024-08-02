@@ -65,6 +65,8 @@ export const HeaderGroup = styled.nav`
   width: 100%;
   max-width: 1120px;
 
+  padding: 0 32px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;

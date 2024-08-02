@@ -1,40 +1,6 @@
 import styled from "styled-components";
 import { ThemeColors } from "../../styles/Theme";
 
-export const Container = styled.main`
-  width: 100%;
-  min-height: 100vh;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  padding: 32px 0;
-
-  position: relative;
-`;
-
-export const Section = styled.section`
-  width: 1120px;
-
-  display: flex;
-  
-  align-items: center;
-  justify-content: space-between;
-
-  margin-top: 60px;
-  padding: 100px 0;
-
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -40%);
-
-  @media (max-width: 900px) {
-    flex-direction: column-reverse;
-  }
-`;
-
 export const ConicGradient = styled.div<{ theme: ThemeColors }>`
   width: 1100px;
   height: 400px;
@@ -73,7 +39,7 @@ export const Content = styled.div<{ theme: ThemeColors }>`
 `;
 
 export const Title = styled.h1<{ theme: ThemeColors }>`
-  font-size: 64px;
+  font-size: 58px;
   font-weight: bold;
 
   color: ${({ theme }) => theme.text_color};
@@ -94,7 +60,7 @@ export const Title = styled.h1<{ theme: ThemeColors }>`
 `;
 
 export const HighlightText = styled.span<{ theme: ThemeColors }>`
-  font-size: 48px;
+  font-size: 38px;
   font-weight: bold;
 
   color: ${({ theme }) => theme.highlight_text_color};
