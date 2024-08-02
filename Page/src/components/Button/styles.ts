@@ -9,6 +9,13 @@ export const Container = styled.button<{ theme: ThemeColors }>`
   border-radius: 8px;
 
   background-color: ${({ theme }) => theme.highlight_background_color};
+
+  cursor: pointer;
+  transition: opacity .3s;
+
+  &:hover {
+    opacity: .9;
+  }
 `;
 
 export const Label = styled.span<{ theme: ThemeColors }>`
