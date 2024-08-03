@@ -1,22 +1,5 @@
-import { ReactNode } from 'react';
+import { MockThemeProvider } from '../../core/providers/theme.mock';
 import { SwitchThemeMode } from './index';
-import { ThemeProvider } from 'styled-components';
-import { theme as themeOptions } from '../../styles/Theme';
-import { ThemeContext } from '../../core/providers/theme';
-
-interface MockThemeProviderProps {
-  children: ReactNode;
-  theme: 'dark' | 'light';
-  toggleTheme: () => void;
-};
-
-const MockThemeProvider = ({ children, theme, toggleTheme }: MockThemeProviderProps) => (
-  <ThemeContext.Provider value={{ selectedTheme: theme, toggleTheme }}>
-    <ThemeProvider theme={themeOptions[theme]}>
-      {children}
-    </ThemeProvider>
-  </ThemeContext.Provider>
-);
 
 describe('<SwitchThemeMode />', () => {
   it('renders in light mode and toggles theme', () => {
