@@ -19,6 +19,10 @@ export const ThemeContextProvider = ({ children }: ThemeContextProviderProps) =>
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
+    
+    const rootElement = document.getElementById('root');
+    rootElement?.classList.add(`theme-${selectedTheme === 'dark' ? 'light' : 'dark'}`);
+    rootElement?.classList.remove(`theme-${selectedTheme}`);
   };
 
   return (

@@ -63,6 +63,11 @@ button {
   box-shadow: 0 4px 30px rgba(102, 102, 102, .1);
   backdrop-filter: blur(32px);
   -webkit-backdrop-filter: blur(32px);
+
+  @media(max-width: 500px) {
+    height: 400px;
+    width: 200px;
+  }
 }
 
 .info__container {
@@ -73,13 +78,30 @@ button {
   align-items: center;
 
   justify-content: space-between;
+}
 
+.info__container.error {
+  justify-content: center;
+  align-items: center;
+  
+  text-align: center;
+}
+
+.info__container h3 {
+  font-size: 16px;
+  font-weight: bold;
+  color: #000000;
 }
 
 .info__container ul {
   display: grid;
   align-items: flex-start;
   grid-template-columns: 1fr 1fr;
+
+  @media(max-width: 500px) {
+    grid-template-columns: 1fr;
+    align-items: center;
+  }
 }
 
 .info__container ul li {
