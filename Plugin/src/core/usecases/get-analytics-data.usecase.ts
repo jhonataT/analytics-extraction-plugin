@@ -1,13 +1,11 @@
 
 import { AnalyticsData } from '../entities/analytics-data.entity'; 
-import { BrowserAnalytics } from '../infra/browser/get-browser-anaytics'; 
+import { IBrowserAnalyticsRepository } from '../infra/browser/repositories/IGetBrowserAnalyticsRepository';
 
 export class GetAnalyticsData {
-  private analytics: BrowserAnalytics;
-
-  constructor() {
-    this.analytics = new BrowserAnalytics();
-  }
+  constructor(
+    private analytics: IBrowserAnalyticsRepository
+  ) {};
 
   execute(): AnalyticsData {
     const device = this.analytics.getDevice();
@@ -16,5 +14,5 @@ export class GetAnalyticsData {
     const themeChanges = this.analytics.getThemeChanges();
     
     return new AnalyticsData(device, os, origin, themeChanges);
-  }
+  };
 };

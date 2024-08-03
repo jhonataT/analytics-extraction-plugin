@@ -1,5 +1,8 @@
 
+import { BrowserAnalyticsRepository } from "../../infra/browser/repositories/browser-anaytics.repository";
 import { GetAnalyticsData } from "../../usecases/get-analytics-data.usecase";
+
+const browserAnalyticsRepository = new BrowserAnalyticsRepository();
 
 const buttonContainer = document.createElement('div');
 buttonContainer.classList.add('button__container');
@@ -22,11 +25,12 @@ button?.addEventListener('click', () => {
   expandingBox.classList.toggle('expanded');
 
   if (expandingBox.classList.contains('expanded')) {
-    const fetchAnalyticsData = new GetAnalyticsData();
+    const fetchAnalyticsData = new GetAnalyticsData(browserAnalyticsRepository);
     const analyticsData = fetchAnalyticsData.execute();
 
     expandingBox.innerHTML = `
       <div class="info__container">
+        <h3>Dados que serão extraídos:</h3>
         <ul>
           <li>
             <span class="title">Dispositivo:</span>
