@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { ThemeColors } from "../../styles/Theme";
 
-export const SwitchContainer = styled.div<{ theme: ThemeColors }>`
+export const SwitchContainer = styled.button<{ theme: ThemeColors }>`
   width: 45px;
   height: 25px;
   
