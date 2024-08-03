@@ -3,7 +3,7 @@ import { ThemeColors } from "../../styles/Theme";
 
 export const Container = styled.button<{ theme: ThemeColors }>`
   width: 220px;
-  height: 60px;
+  height: 50px;
   
   border: none;
   border-radius: 8px;
@@ -16,6 +16,11 @@ export const Container = styled.button<{ theme: ThemeColors }>`
   &:hover {
     opacity: .9;
   }
+
+  @media (max-width: 400px) {
+    width: 180px;
+    height: 40px;
+  }
 `;
 
 export const Label = styled.span<{ theme: ThemeColors }>`
@@ -23,4 +28,7 @@ export const Label = styled.span<{ theme: ThemeColors }>`
   font-weight: 400;
   color: #fff;
 
+  @media (max-width: 900px) {
+    font-size: 14px;
+  }
 `;

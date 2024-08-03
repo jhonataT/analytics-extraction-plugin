@@ -8,8 +8,7 @@ import {
   AvatarImg,
   ConicGradient,
   Content,
-  HighlightText,
-  Title
+  TextField
 } from "./styles";
 import { Section } from '../../components/Section';
 
@@ -22,12 +21,12 @@ export const HomeScreen = ({ currentTheme }: HomeScreenProps) => {
     <ConicGradient/>
     <Section>
       <Content>
-        <Title>
-          Olá, meu nome é {getAvatarName(currentTheme, true)}!
-          <HighlightText>
+        <TextField>
+          <h1>Olá, meu nome é {getAvatarName(currentTheme, true)}!</h1>
+          <span>
             Sou responsável por traduções virtuais incríveis.
-          </HighlightText>
-        </Title>
+          </span>
+        </TextField>
         <Button
           label='Entre em contato'
           handleClick={() => {}}
