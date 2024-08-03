@@ -40,6 +40,16 @@ button {
 
   backdrop-filter: blur(32px);
   -webkit-backdrop-filter: blur(32px);
+
+  transition: background-color .2s;
+}
+
+#starter.close_btn {
+  background-color: #b23535 !important;
+}
+
+#starter:hover {
+  background-color: #20c6adf3;
 }
 
 .expanding-box {
