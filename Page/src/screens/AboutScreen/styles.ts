@@ -29,18 +29,16 @@ export const LeftSide = styled.section<{ theme: ThemeColors }>`
   gap: 16px;
   flex-direction: column;
 
-  h2 {
-    font-size: 48px;
-    font-weight: bold;
-    color: ${({ theme }) => theme.highlight_text_color};
+  p {
+    margin-bottom: 8px;
   }
 
-  p {
-    font-size: 20px;
-    font-weight: 400;
-    color: ${({ theme }) => theme.neutral_text_color};
-
-    margin-bottom: 8px;
+  @media (max-width: 900px) {
+    width: 80%;
+    text-align: center;
+    
+    align-items: center;
+    margin-bottom: 32px;
   }
 `;
 
@@ -50,6 +48,7 @@ export const RightSide = styled.section<{ theme: ThemeColors }>`
 
   display: grid;
   gap: 48px;
+  align-items: flex-start;
   grid-template-columns: 1fr 1fr;
   
   .list__container {
@@ -63,14 +62,17 @@ export const RightSide = styled.section<{ theme: ThemeColors }>`
       color: ${({ theme }) => theme.text_color};
     }
 
-    ul > li  {
-      font-size: 16px;
-      color: ${({ theme }) => theme.neutral_text_color};
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 4px
     }
-  }
 
+  }
+  
   @media (max-width: 900px) {
-    margin-top: 64px;
-    grid-template-columns: 1fr 1fr;
+    width: 100%;
+
+    grid-template-columns: 1fr;
   }
 `;

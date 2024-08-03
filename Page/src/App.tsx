@@ -5,6 +5,9 @@ import { useThemeContext, UseThemeContext } from "./core/providers/theme";
 import { Header } from "./components/Header";
 import { HomeContainer } from "./containers/HomeContainer";
 import { AboutContainer } from "./containers/AboutContainer";
+import { ProjectsContainer } from "./containers/ProjectsContainer";
+import { PostsContainer } from "./containers/PostsContainer";
+import { Footer } from "./components/Footer";
 
 const App = () => {
   const { selectedTheme }: UseThemeContext = useThemeContext();
@@ -15,6 +18,9 @@ const App = () => {
       <Header/>
       <HomeContainer/>
       <AboutContainer/>
+      <ProjectsContainer/>
+      <PostsContainer/>
+      <Footer/>
     </ThemeProvider>
   </>
 };

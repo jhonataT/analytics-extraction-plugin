@@ -27,9 +27,9 @@ export const AboutScreen = ({ resumeDetails }: AboutScreenProps) => {
     <ConicGradient/>
     <Section isReverseColumn={false}>
       <LeftSide>
-        <h2>
+        <h3>
           Sobre mim
-        </h2>
+        </h3>
         <p title={description}>{description}</p>
         <Button
           label="Solicite um orçamento"

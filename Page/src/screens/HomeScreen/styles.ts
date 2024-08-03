@@ -38,39 +38,14 @@ export const Content = styled.div<{ theme: ThemeColors }>`
   }
 `;
 
-export const Title = styled.h1<{ theme: ThemeColors }>`
-  font-size: 58px;
-  font-weight: bold;
-
-  color: ${({ theme }) => theme.text_color};
-
+export const TextField = styled.h1<{ theme: ThemeColors }>`
   display: flex;
   gap: 8px;
+
   flex-direction: column;
 
   @media (max-width: 900px) {
     width: 80%;
-    font-size: 48px;
     text-align: center;
-  }
-
-  @media (max-width: 500px) {
-    font-size: 32px;
-  }
-`;
-
-export const HighlightText = styled.span<{ theme: ThemeColors }>`
-  font-size: 38px;
-  font-weight: bold;
-
-  color: ${({ theme }) => theme.highlight_text_color};
-
-  @media (max-width: 900px) {
-    font-size: 32px;
-    text-align: center;
-  }
-
-  @media (max-width: 500px) {
-    font-size: 16px;
   }
 `;

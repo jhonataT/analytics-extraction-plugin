@@ -19,7 +19,6 @@ export const Global = createGlobalStyle<{ theme?: ThemeColors }>`
     letter-spacing: 1px;
 
     color: ${({ theme }) => theme.text_color};
-
     background-color: ${({ theme }) => theme.background_color};
 
     overflow-x: hidden;
@@ -42,5 +41,77 @@ export const Global = createGlobalStyle<{ theme?: ThemeColors }>`
     text-decoration: none;
     color: ${({ theme }) => theme.text_color};
     cursor: pointer;
+  }
+
+  h1 {
+    font-size: 48px;
+    font-weight: bold;
+
+    color: ${({ theme }) => theme.text_color};
+
+    @media (max-width: 900px) {
+      font-size: 40px;
+    }
+
+    @media (max-width: 500px) {
+      font-size: 24px;
+    }
+  }
+
+  h3 {
+    font-size: 48px;
+    font-weight: bold;
+    color: ${({ theme }) => theme.highlight_text_color};
+
+    @media (max-width: 900px) {
+      font-size: 32px;
+      text-align: center;
+    }
+
+    @media (max-width: 500px) {
+      font-size: 24px;
+    }
+  }
+
+  p {
+    font-size: 20px;
+    font-weight: 400;
+    color: ${({ theme }) => theme.neutral_text_color};
+
+    @media (max-width: 900px) {
+      font-size: 16px;
+    }
+
+    @media (max-width: 500px) {
+      font-size: 12px;
+    }
+  }
+
+  span {
+    font-size: 32px;
+    font-weight: bold;
+
+    color: ${({ theme }) => theme.highlight_text_color};
+
+    @media (max-width: 900px) {
+      font-size: 24px;
+      text-align: center;
+    }
+
+    @media (max-width: 500px) {
+      font-size: 14px;
+    }
+  }
+
+  ul > li  {
+    font-size: 14px;
+    color: ${({ theme }) => theme.neutral_text_color};
+    
+    @media (max-width: 900px) {
+      font-size: 12px;
+      list-style-type: none;
+
+      text-align: center;
+    }
   }
 `;
