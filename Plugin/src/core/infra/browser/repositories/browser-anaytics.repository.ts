@@ -40,7 +40,9 @@ export class BrowserAnalyticsRepository implements IBrowserAnalyticsRepository {
   }
 
   getThemeChanges(): number {
-    return Math.round(this.themeChangeCount / 2) - 1;
+    const result = Math.round(this.themeChangeCount / 2);
+
+    return result >= 0 ? result : 0;
   }
 
   private observeThemeChanges(): void {

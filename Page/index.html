@@ -12,5 +12,16 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="http://localhost:3002/src/main.ts"></script>
+    <script>
+      var ht;
+      window.addEventListener('load', () => {
+        if (window.HT_TOKEN) {
+          ht = new window.HT_TOKEN({
+            token: "<TOKEN>"
+          });
+        }
+      });
+    </script>
   </body>
 </html>

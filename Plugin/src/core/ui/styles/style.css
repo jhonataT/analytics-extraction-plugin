@@ -80,6 +80,13 @@ button {
   justify-content: space-between;
 }
 
+.info__container.error {
+  justify-content: center;
+  align-items: center;
+  
+  text-align: center;
+}
+
 .info__container h3 {
   font-size: 16px;
   font-weight: bold;
