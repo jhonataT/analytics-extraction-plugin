@@ -14,8 +14,12 @@ const headerItems: HeaderItem[] = [
 ];
 
 const HeaderContainer = ({ menuIsOpen, setMenuIsOpen, children }: HeaderContainerProps) => (
-  <Container className={`${menuIsOpen && 'active'}`}>
-    <MenuIcon onClick={() => setMenuIsOpen(!menuIsOpen)} className={`${menuIsOpen && 'active'}`}>
+  <Container className={`${menuIsOpen && 'active'}`} data-testid="header-container">
+    <MenuIcon 
+      onClick={() => setMenuIsOpen(!menuIsOpen)} 
+      className={`${menuIsOpen && 'active'}`} 
+      data-testid="menu-icon"
+    >
       {!menuIsOpen ? <GiHamburgerMenu/> : <IoCloseSharp/>}
     </MenuIcon>
     {children}
@@ -25,26 +29,28 @@ const HeaderContainer = ({ menuIsOpen, setMenuIsOpen, children }: HeaderContaine
 export const Header = () => {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
 
-  return  <HeaderContainer {...{menuIsOpen, setMenuIsOpen}}>
-    <HeaderGroup>
-      <HeaderList>
-        {headerItems && headerItems.map((item) => (
-          <HeaderListItem key={item.id}>
-            <Link
-              to={`${item.to}`}
-              activeClass="active"
-              spy={true}
-              smooth={true}
-              duration={500}
-            >
-              {item.title}
-            </Link>
-          </HeaderListItem>
-        ))}
-      </HeaderList>
-      <IconsCont>
-        <SwitchThemeMode/>
-      </IconsCont>
-    </HeaderGroup>
-  </HeaderContainer>
+  return (
+    <HeaderContainer {...{menuIsOpen, setMenuIsOpen}}>
+      <HeaderGroup>
+        <HeaderList>
+          {headerItems.map((item) => (
+            <HeaderListItem key={item.id} data-testid="header-list-item">
+              <Link
+                to={`${item.to}`}
+                activeClass="active"
+                spy={true}
+                smooth={true}
+                duration={500}
+              >
+                {item.title}
+              </Link>
+            </HeaderListItem>
+          ))}
+        </HeaderList>
+        <IconsCont>
+          <SwitchThemeMode data-testid="theme-switch" />
+        </IconsCont>
+      </HeaderGroup>
+    </HeaderContainer>
+  );
 };
