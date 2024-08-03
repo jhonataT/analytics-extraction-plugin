@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "cypress:open": "cypress open",
-    "test": "cypress run"
+    "test:open": "cypress open",
+    "test": "cypress run --component"
   },
   "dependencies": {
     "react": "^18.3.1",
