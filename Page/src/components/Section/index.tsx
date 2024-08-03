@@ -7,7 +7,7 @@ interface SectionProps {
 };
 
 export const Section = ({ children, isReverseColumn = true }: SectionProps) => {
-  return <SectionStyle isReverseColumn={isReverseColumn}>
+  return <SectionStyle reverse={isReverseColumn.toString()}>
     {children}
   </SectionStyle>
 };

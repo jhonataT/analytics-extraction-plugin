@@ -38,7 +38,7 @@ export const Content = styled.div<{ theme: ThemeColors }>`
   }
 `;
 
-export const TextField = styled.h1<{ theme: ThemeColors }>`
+export const TextField = styled.div<{ theme: ThemeColors }>`
   display: flex;
   gap: 8px;
 

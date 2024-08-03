@@ -16,9 +16,11 @@ export const AboutScreen = ({ resumeDetails }: AboutScreenProps) => {
     return <div className="list__container">
       <h3>{title}</h3>
       <ul>
-        {options.map(option => (<li key={option}>
-          {option}
-        </li>))}
+        {options.map((option, idx) => (
+          <li key={`${idx}-${option}`}>
+            {option}
+          </li>
+        ))}
       </ul>
     </div>
   }
@@ -37,7 +39,9 @@ export const AboutScreen = ({ resumeDetails }: AboutScreenProps) => {
         />
       </LeftSide>
       <RightSide>
-        {resumeDetails.map(resumeItem => <ResumeListItem {...resumeItem}/>)}
+        {resumeDetails.map((resumeItem, idx) => (
+          <ResumeListItem key={`${idx}-${resumeItem.title}`} {...resumeItem}/>)
+        )}
       </RightSide>
     </Section>
   </Container>
