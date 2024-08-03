@@ -9,7 +9,7 @@ export const PostsScreen = () => {
     return <PostRowContainer title="Ver postagem">
       <span className="date_content">05/08/2024</span>
       <div className="profile__container">
-        <ProfilePhoto name="Jhonata Tenorio"/>
+        <ProfilePhoto name="Hand Talk"/>
         <div className="profile_details__container">
           <span>Hand Talk</span>
           <span>email@handtalk.com</span>

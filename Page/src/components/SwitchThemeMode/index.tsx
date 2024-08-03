@@ -6,7 +6,11 @@ export const SwitchThemeMode = () => {
   const { selectedTheme, toggleTheme } = useThemeContext();
 
   return (
-    <SwitchContainer onClick={toggleTheme} data-testid="theme-switch">
+    <SwitchContainer
+      onClick={toggleTheme}
+      data-testid="theme-switch"
+      area-label="Alterar tema da página"
+    >
       <IoMdMoon
         className={selectedTheme === 'dark' ? 'active' : ''}
         data-testid="icon-moon"
