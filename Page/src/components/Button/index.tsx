@@ -6,7 +6,7 @@ interface ButtonProps {
 };
 
 export const Button = ({ label, handleClick }: ButtonProps) => {
-  return <Container onClick={handleClick} title={label}>
+  return <Container onClick={handleClick} title={label} data-testid="button-container">
     <Label>{label}</Label>
   </Container>
 }
