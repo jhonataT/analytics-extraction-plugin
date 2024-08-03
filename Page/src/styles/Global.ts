@@ -6,6 +6,19 @@ export const Global = createGlobalStyle<{ theme?: ThemeColors }>`
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+
+    &::-webkit-scrollbar {
+      width: .5em;
+    }
+
+    &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px ${({ theme }) => theme.background_color};
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: darkgrey;
+      outline: 1px solid slategrey;
+    }
   }
 
   body {
@@ -22,19 +35,6 @@ export const Global = createGlobalStyle<{ theme?: ThemeColors }>`
     background-color: ${({ theme }) => theme.background_color};
 
     overflow-x: hidden;
-
-    &::-webkit-scrollbar {
-      width: .5em;
-    }
-
-    &::-webkit-scrollbar-track {
-      box-shadow: inset 0 0 6px ${({ theme }) => theme.background_color};
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: darkgrey;
-      outline: 1px solid slategrey;
-    }
   }
 
   a {

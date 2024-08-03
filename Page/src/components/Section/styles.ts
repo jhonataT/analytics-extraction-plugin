@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const SectionStyle = styled.section<{ isReverseColumn: boolean }>`
+export const SectionStyle = styled.section<{ reverse: string }>`
   width: 1120px;
   min-height: 100vh !important;
 
@@ -13,7 +13,7 @@ export const SectionStyle = styled.section<{ isReverseColumn: boolean }>`
   padding: 50px 32px;
 
   @media (max-width: 900px) {
-    flex-direction: ${({ isReverseColumn }) => isReverseColumn ? 'column-reverse' : 'column'};
+    flex-direction: ${({ reverse }) => reverse === 'true' ? 'column-reverse' : 'column'};
   }
 
   @media (max-width: 900px) {
