@@ -1,5 +1,5 @@
-import { BrowserAnalyticsRepository } from "../../infra/browser/repositories/browser-anaytics.repository";
-import { GetAnalyticsData } from "../../usecases/get-analytics-data.usecase";
+import { BrowserAnalyticsRepository } from "../infra/browser/repositories/browser-anaytics.repository";
+import { GetAnalyticsData } from "../usecases/get-analytics-data.usecase";
 
 const browserAnalyticsRepository = new BrowserAnalyticsRepository();
 
