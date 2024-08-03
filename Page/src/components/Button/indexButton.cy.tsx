@@ -2,7 +2,7 @@ import { Button } from './index';
 
 describe('<Button />', () => {
   it('renders and handles click', () => {
-    cy.mount(<Button label='LABEL HERE' handleClick={() => {}} />);
+    cy.mount(<Button label='ANY LABEL' handleClick={() => {}} />);
 
     cy.get('[data-testid="button-container"]').should('exist');
     cy.get('[data-testid="button-container"]').contains('ANY LABEL');
