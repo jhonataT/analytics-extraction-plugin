@@ -183,25 +183,25 @@ A API foi desenvolvida seguindo princípios SOLID e Clean Architecture para gara
        -  Controladores lidam apenas com o processamento das requisições.
        -  Serviços lidam com a lógica de negócios.
        
-##### 2.5.2. Open/Closed Principle (OCP):
+##### 3.5.2. Open/Closed Principle (OCP):
  - *Motivação: O código deve ser aberto para extensão, mas fechado para modificação.*
 - *Exemplo na Aplicação:*
  
        - O código da API pode ser estendido com novos endpoints e serviços sem alterar o código existente.
       
-##### 2.5.3. Liskov Substitution Principle (LSP):
+##### 3.5.3. Liskov Substitution Principle (LSP):
  - *Motivação: Subclasses devem poder substituir suas classes base sem alterar o comportamento esperado.*
   - *Exemplo na Aplicação:*
 
        -  Qualquer implementação de repositório deve manter a compatibilidade com a interface esperada, permitindo a substituição das implementações conforme necessário.
        
-##### 2.5.4. Dependency Inversion Principle (DIP):
+##### 3.5.4. Dependency Inversion Principle (DIP):
  - *Motivação: Depender de abstrações, não de implementações concretas.*
  - *Exemplo na Aplicação:*
  
        -  A API depende de abstrações para interagir com os repositórios e serviços, facilitando a substituição e a extensão do sistema sem alterar o código base.
        
-##### 2.5.6. Clean Architecture:
+##### 3.5.5. Clean Architecture:
  - *Motivação: Separar o sistema em camadas distintas para promover a separação de responsabilidades e permitir a flexibilidade de substituir partes do sistema sem afetar outras.*
  - *Exemplo na Aplicação:*
  
@@ -211,6 +211,6 @@ A API foi desenvolvida seguindo princípios SOLID e Clean Architecture para gara
        -  Frameworks e Drivers: Incluem a implementação concreta de frameworks e bibliotecas que interagem com o sistema (por exemplo, integração com o Firebase Realtime Database).
       
 
-##### 2.5.8 Conclusão
+### 4 Conclusão
 Esta documentação fornece uma visão geral completa da aplicação, incluindo a estrutura do repositório, as funcionalidades de cada componente e os padrões de projeto utilizados
 
