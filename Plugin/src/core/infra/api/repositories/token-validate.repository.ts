@@ -33,7 +33,7 @@ export class HT_TOKEN {
   private async tokenValidation() {
     try {
       const response = await Api.get('get-responsible-token', this.getToken());
-      
+  
       if(!response?.id) {
         throw new Error('Token is not valid!');
       }

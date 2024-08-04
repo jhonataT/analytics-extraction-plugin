@@ -1,5 +1,8 @@
+import { config } from "../../config/config";
+const { apiUrl } = config;
+
 export class Api {
-  private static serverUrl = import.meta.env.VITE_API_BASE_URL;
+  private static serverUrl = apiUrl;
   
   private static getHeaders(token?: string): HeadersInit {
     if(token) {
