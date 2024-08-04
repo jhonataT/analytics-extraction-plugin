@@ -7,7 +7,7 @@ const rateLimiter = new RateLimiterMemory({
 });
 
 const rateLimitMiddleware = (req: Request, res: Response, next: NextFunction) => {
-  const token = req.headers['authorization'];
+  const token = req.headers['authorization']?.replace('Bearer ', '');
 
   if (!token) {
     return res.status(401).send('Access Denied');
@@ -16,11 +16,14 @@ const rateLimitMiddleware = (req: Request, res: Response, next: NextFunction) =>
   const tokenKey = token as string;
 
   rateLimiter.consume(tokenKey)
-    .then(() => {
+    .then((rateLimiterRes) => {
+      console.log(`Request allowed for token`);
+      console.log(`Remaining points: ${rateLimiterRes.remainingPoints}`);
       next();
     })
-    .catch(() => {
-      res.status(429).send('Too Many Requests');
+    .catch((err) => {
+      console.log(`Too many requests for token`, err);
+      res.status(429).send({ error: 'Too many requests for token' });
     });
 };
 

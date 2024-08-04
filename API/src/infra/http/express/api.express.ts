@@ -1,5 +1,7 @@
+import cors from 'cors';
 import express, { Application } from 'express';
 import { router as apiRouter } from './routes/index';
+import rateLimitMiddleware from '../../rateLimiter/middlewares/rate-limit.middleware';
 
 class ApiExpress {
   private app: Application;
@@ -19,6 +21,8 @@ class ApiExpress {
   };
 
   private setupMiddlewares(): void {
+    this.app.use(cors({ origin: 'http://localhost:3001' }));
+    // this.app.use(rateLimitMiddleware);
     this.app.use(express.json());
   };
 

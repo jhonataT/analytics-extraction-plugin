@@ -7,7 +7,7 @@ type CreateAnalyticsDataRequest = {
   os: string;
   sourceDomainUrl: string;
   themeChangeCount: number;
-  responsibleToken: string;
+  token: string;
 };
 
 type CreateAnalyticsDataResponse = {
@@ -25,20 +25,20 @@ export class CreateAnalyticsData {
     os,
     sourceDomainUrl,
     themeChangeCount,
-    responsibleToken
+    token
   }: CreateAnalyticsDataRequest): Promise<CreateAnalyticsDataResponse> {
-    const responsible = await this.responsibleTokenRepository.getResponsibleToken(responsibleToken);
+    const responsible = await this.responsibleTokenRepository.getResponsibleToken(token);
 
     if (!responsible) {
       throw new Error('Responsible token is not valid!');
-    }
+    };
 
     const analyticsData = await AnalyticsData.create({
       device,
       os,
       sourceDomainUrl,
       themeChangeCount,
-      responsibleToken
+      responsibleToken: responsible.id
     });
 
     const savedAnalyticsData = await this.analyticsDataRepository.save(analyticsData);

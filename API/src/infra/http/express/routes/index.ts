@@ -39,10 +39,11 @@ const getAnalyticsDataService = new GetAnalyticsData(analyticsDataRepository);
 const getAnalyticsDataRoute = GetAnalyticsDataRoute.create(getAnalyticsDataService);
 
 
-router.get('/get-responsible-token', getResponsibleTokenRoute.getHandler());
-router.post('/generate-responsible-token', createResponsibleTokenRoute.getHandler());
+router.get('/get-responsible-token', jwtMiddleware, getResponsibleTokenRoute.getHandler());
+// router.post('/generate-responsible-token', createResponsibleTokenRoute.getHandler());
 
 router.post('/collect', jwtMiddleware, rateLimitMiddleware, createAnalyticsDataRoute.getHandler());
+// router.post('/collect', jwtMiddleware, createAnalyticsDataRoute.getHandler());
 router.get('/list', getAnalyticsDataRoute.getHandler());
 
 export { router };

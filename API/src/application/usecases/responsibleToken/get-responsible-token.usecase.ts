@@ -26,6 +26,6 @@ export class GetResponsibleToken {
       return { id: responsibleToken.id };
     }
 
-    throw new Error('Token not found!');
+    throw new Error('Token or domain not found!');
   }
 }
