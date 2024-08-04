@@ -1,7 +1,7 @@
 import { Entity } from "../../core/domain/Entity";
 
 type AnalyticsDataProps = {
-  device: 'android' | 'ios' | 'desktop';
+  device: string;
   os: string;
   sourceDomainUrl: string;
   themeChangeCount: number;
