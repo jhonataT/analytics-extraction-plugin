@@ -4,7 +4,7 @@ export class BrowserAnalyticsRepository implements IBrowserAnalyticsRepository {
   static instance: BrowserAnalyticsRepository;
   private themeChangeCount: number = 0;
 
-  private constructor() {
+  constructor() {
     this.observeThemeChanges();
   };
 
@@ -30,20 +30,21 @@ export class BrowserAnalyticsRepository implements IBrowserAnalyticsRepository {
 
   getOS(): string {
     const ua = navigator.userAgent;
-    if (/windows/i.test(ua)) {
+    if (/android/i.test(ua)) {
+      return 'Android';
+    } else if (/windows/i.test(ua)) {
       return 'Windows';
     } else if (/mac/i.test(ua)) {
       return 'MacOS';
     } else if (/linux/i.test(ua)) {
       return 'Linux';
-    } else if (/android/i.test(ua)) {
-      return 'Android';
-    } else if (/iOS/i.test(ua)) {
+    } else if (/iPad|iPhone|iPod/.test(ua) && !('MSStream' in window)) {
       return 'iOS';
     } else {
       return 'Unknown';
     }
-  };
+  }
+  
 
   getOrigin(): string {
     return window.location.origin;
