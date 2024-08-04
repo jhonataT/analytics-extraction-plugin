@@ -5,21 +5,30 @@ interface HTOptions {
 };
 
 export class HT_TOKEN {
+  static instance: HT_TOKEN;
   private token: string;
   private isValidToken: boolean = false;
 
-  constructor(options: HTOptions) {
+  private constructor(options: HTOptions) {
     this.token = options.token;
     this.tokenValidation();
   };
 
+  static init(options: HTOptions) {
+    if(!HT_TOKEN.instance) {
+      HT_TOKEN.instance = new HT_TOKEN(options);
+    };
+
+    return HT_TOKEN.instance;
+  };
+
   getToken(): string {
     return this.token;
-  }
+  };
 
   getIsValidToken(): boolean {
     return this.isValidToken;
-  }
+  };
  
   private async tokenValidation() {
     try {
@@ -33,7 +42,7 @@ export class HT_TOKEN {
     } catch(error) {
       this.isValidToken = false;
     }
-  }
+  };
 };
 
 (window as any).HT_TOKEN = HT_TOKEN;

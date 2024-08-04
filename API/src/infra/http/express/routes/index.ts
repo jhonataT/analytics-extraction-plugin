@@ -14,9 +14,12 @@ import { CreateResponsibleToken } from '../../../../application/usecases/respons
 import { GetResponsibleTokenRoute } from './responsibleToken/get-responsible-token.express.route';
 import { GetResponsibleToken } from '../../../../application/usecases/responsibleToken/get-responsible-token.usecase';
 
+// Applied Singleton Pattern: by @jhonataT
+// Applied Dependency Injection pattern: by @jhonataT
+// Applied Middleware Pattern: by @jhonataT
+
 const router = express.Router();
 
-// Applied Singleton Pattern: by @jhonataT
 const firebaseResponsibleTokenRepository = FirebaseResponsibleTokenRepository.init();
 const firebaseAnalyticsDataRepository = FirebaseAnalyticsDataRepository.init();
 
@@ -36,8 +39,6 @@ const getResponsibleTokenRoute = GetResponsibleTokenRoute.create(getResponsibleT
 const getAnalyticsDataService = GetAnalyticsData.init(analyticsDataRepository);
 const getAnalyticsDataRoute = GetAnalyticsDataRoute.create(getAnalyticsDataService);
 
-
-// Applied Middleware Pattern: by @jhonataT
 router.get('/get-responsible-token', jwtMiddleware, getResponsibleTokenRoute.getHandler());
 // router.post('/generate-responsible-token', createResponsibleTokenRoute.getHandler());
 router.post('/collect', jwtMiddleware, rateLimitMiddleware, createAnalyticsDataRoute.getHandler());
