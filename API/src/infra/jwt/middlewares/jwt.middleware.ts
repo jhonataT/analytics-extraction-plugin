@@ -6,16 +6,18 @@ interface CustomRequest extends Request {
 }
 
 const jwtMiddleware = (req: CustomRequest, res: Response, next: NextFunction) => {
-  const token = req.headers['authorization'];
+  const token = req.headers['authorization']?.replace('Bearer ', '');
   if (!token)
     return res.status(401).send('Access Denied');
 
   try {
     const payload = verifyToken(token as string);
-    const domain = req.hostname;
+    const domain = req.body.sourceDomainUrl;
+
     if (payload.domain !== domain) {
       return res.status(403).send('Forbidden');
     }
+
     req.responsibleToken = payload;
     next();
   } catch (error) {

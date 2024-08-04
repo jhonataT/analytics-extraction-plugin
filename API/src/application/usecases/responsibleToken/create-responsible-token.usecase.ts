@@ -1,20 +1,30 @@
-import { Responsible } from "../../../domain/entities/responsible-token.entity";
-import { ResponsibleTokenRepository } from "../../repositories/responsible-token-repository";
+import { ResponsibleToken } from "../../../domain/entities/responsible-token.entity";
+import { IResponsibleTokenRepository } from "../../repositories/IResponsibleTokenRepository";
 
 type CreateResponsibleTokenRequest = {
-  token: string;
   email?: string;
-  lastExtractionsCount: number
+  domain: string;
+};
+
+type CreateResponsibleTokenResponse = {
+  token?: string;
+  domain: string;
 };
 
 export class CreateResponsibleToken {
-  async execute({ lastExtractionsCount, token, email }: CreateResponsibleTokenRequest) {
-    const responsible = Responsible.create({
-      lastExtractionsCount,
-      token,
-      email
-    });
+  constructor(
+    private responsibleTokenRepository: IResponsibleTokenRepository,
+  ) {}
 
-    return responsible;
+  async execute({ domain, email }: CreateResponsibleTokenRequest): Promise<CreateResponsibleTokenResponse> {
+    
+    const createResponsible = ResponsibleToken.create({ domain, email });
+
+    const savedResponsible = await this.responsibleTokenRepository.save(createResponsible);
+
+    return { 
+      token: savedResponsible.props.token,
+      domain: savedResponsible.props.domain
+    };
   };
 };

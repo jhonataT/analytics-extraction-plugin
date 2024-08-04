@@ -1,9 +1,16 @@
+import 'dotenv/config';
 import jwt from 'jsonwebtoken';
 
 const secret = process.env.JWT_SECRET as string;
 
-export const generateToken = (payload: object): string => {
-  return jwt.sign(payload, secret, { expiresIn: '1h' });
+interface Payload {
+  id: string;
+  domain: string;
+  email: string | undefined;
+};
+
+export const generateToken = (payload: Payload, expiresIn: string = '1h'): string => {
+  return jwt.sign(payload, secret, { expiresIn: expiresIn });
 };
 
 export const verifyToken = (token: string): any => {
