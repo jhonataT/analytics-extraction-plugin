@@ -3,9 +3,20 @@ import { FirebaseResponsibleTokenRepository } from "../../infra/firebase/reposit
 import { IResponsibleTokenRepository } from "./IResponsibleTokenRepository";
 
 export class ResponsibleTokenRepository implements IResponsibleTokenRepository {
-  constructor(
+  static instance: ResponsibleTokenRepository;
+  
+  private constructor(
     private firebaseRepository: FirebaseResponsibleTokenRepository
   ) {};
+
+  static init(firebaseResponsibleTokenRepository: FirebaseResponsibleTokenRepository) {
+    // Singleton Pattern
+    if(!ResponsibleTokenRepository.instance) {
+      ResponsibleTokenRepository.instance = new ResponsibleTokenRepository(firebaseResponsibleTokenRepository);
+    };
+
+    return ResponsibleTokenRepository.instance;
+  };
 
   async save(resposibleTokenBody: ResponsibleToken): Promise<ResponsibleToken> {
     return await this.firebaseRepository.save(resposibleTokenBody);

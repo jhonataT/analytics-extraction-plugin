@@ -7,19 +7,26 @@ type GetResponsibleTokenResponseDto = {
 };
 
 export class GetResponsibleTokenRoute implements Route {
+  static instance: GetResponsibleTokenRoute;
+  
   private constructor(
     private readonly path: string,
     private readonly method: HttpMethod,
     private readonly getResponsibleTokenService: GetResponsibleToken,
-  ) {}
+  ) {};
 
   public static create(getResponsibleTokenService: GetResponsibleToken) {
-    return new GetResponsibleTokenRoute(
-      "/get-responsible-token",
-      HttpMethod.GET,
-      getResponsibleTokenService
-    );
-  }
+    // Singleton Pattern
+    if(!GetResponsibleTokenRoute.instance) {
+      GetResponsibleTokenRoute.instance = new GetResponsibleTokenRoute(
+        "/get-responsible-token",
+        HttpMethod.GET,
+        getResponsibleTokenService
+      );
+    }
+
+    return GetResponsibleTokenRoute.instance;
+  };
 
   public getHandler(): (req: Request, res: Response) => Promise<void> {
     return async (req: Request, res: Response) => {

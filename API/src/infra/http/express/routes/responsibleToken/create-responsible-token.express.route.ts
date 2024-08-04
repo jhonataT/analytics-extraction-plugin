@@ -13,6 +13,8 @@ export type CreateTokenResponseDto = {
 };
 
 export class CreateResponsibleTokenRoute implements Route {
+  static instance: CreateResponsibleTokenRoute;
+  
   private constructor(
     private readonly path: string,
     private readonly method: HttpMethod,
@@ -20,11 +22,16 @@ export class CreateResponsibleTokenRoute implements Route {
   ) {};
 
   public static create(createResponsibleTokenService: CreateResponsibleToken) {
-    return new CreateResponsibleTokenRoute(
-      "/generate-responsible-token",
-      HttpMethod.POST,
-      createResponsibleTokenService
-    );
+    // Singleton Pattern
+    if(!CreateResponsibleTokenRoute.instance) {
+      CreateResponsibleTokenRoute.instance = new CreateResponsibleTokenRoute(
+        "/generate-responsible-token",
+        HttpMethod.POST,
+        createResponsibleTokenService
+      );
+    }
+
+    return CreateResponsibleTokenRoute.instance;
   };
 
   public getHandler(): (req: Request, res: Response) => Promise<void> {

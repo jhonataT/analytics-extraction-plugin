@@ -17,19 +17,26 @@ type GetAnalyticsDataResponseDto = {
 };
 
 export class GetAnalyticsDataRoute implements Route {
+  static instance: GetAnalyticsDataRoute;
+  
   private constructor(
     private readonly path: string,
     private readonly method: HttpMethod,
     private readonly getAnalyticsDataService: GetAnalyticsData,
-  ) {}
+  ) {};
 
   public static create(getAnalyticsDataService: GetAnalyticsData) {
-    return new GetAnalyticsDataRoute(
-      "/list",
-      HttpMethod.GET,
-      getAnalyticsDataService
-    );
-  }
+    // Singleton Pattern
+    if(!GetAnalyticsDataRoute.instance) {
+      GetAnalyticsDataRoute.instance = new GetAnalyticsDataRoute(
+        "/list",
+        HttpMethod.GET,
+        getAnalyticsDataService
+      );
+    }
+
+    return GetAnalyticsDataRoute.instance;
+  };
 
   public getHandler(): (req: Request, res: Response) => Promise<void> {
     return async (req: Request, res: Response) => {

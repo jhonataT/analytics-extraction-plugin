@@ -3,7 +3,19 @@ import { IResponsibleTokenRepository } from '../../../application/repositories/I
 import { ResponsibleToken } from '../../../domain/entities/responsible-token.entity';
 
 export class FirebaseResponsibleTokenRepository implements IResponsibleTokenRepository {
+  static instance: FirebaseResponsibleTokenRepository;
   private dbRef = db.ref('responsibleTokens');
+
+  private constructor() {};
+
+  static init() {
+    // Singleton Pattern
+    if(!FirebaseResponsibleTokenRepository.instance) {
+      FirebaseResponsibleTokenRepository.instance = new FirebaseResponsibleTokenRepository();
+    }
+
+    return FirebaseResponsibleTokenRepository.instance;
+  };
 
   async save(responsibleToken: ResponsibleToken): Promise<ResponsibleToken> {
     const newResponsibleRef = this.dbRef.push();

@@ -3,7 +3,19 @@ import { AnalyticsData } from '../../../domain/entities/analytics-data.entity';
 import { IAnalyticsDataRepository } from '../../../application/repositories/IAnalyticsDataRepository';
 
 export class FirebaseAnalyticsDataRepository implements IAnalyticsDataRepository {
+  static instance: FirebaseAnalyticsDataRepository;
   private dbRef = db.ref('analyticsData');
+
+  private constructor() {};
+
+  static init() {
+    // Singleton Pattern
+    if(!FirebaseAnalyticsDataRepository.instance) {
+      FirebaseAnalyticsDataRepository.instance = new FirebaseAnalyticsDataRepository();
+    };
+
+    return FirebaseAnalyticsDataRepository.instance;
+  };
 
   async save(analyticsData: AnalyticsData): Promise<AnalyticsData> {
     const newAnalyticsRef = this.dbRef.push();
