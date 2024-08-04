@@ -13,6 +13,51 @@ Root/
   API/
 ```
 
+# Diagrama da Arquitetura
+
+<div align="center">
+![CleanArchitecture](https://github.com/user-attachments/assets/14258bb6-31f7-4016-b0c5-c6f634f79ea3)
+![diagramaPlugin](https://github.com/user-attachments/assets/9bbfe76e-7915-4317-a06c-dd0ca73d4958)
+</div>
+
+## 0.1. Explicação da Arquitetura
+
+### 0.1.1 Introdução
+
+A arquitetura da aplicação é projetada para promover a escalabilidade, modularidade e manutenção. Abaixo está uma descrição das principais camadas e componentes.
+
+### 0.1.2. Camadas e Componentes
+
+#### 0.1.2.1. Camada de Apresentação
+- **Componentes:** Interface do usuário, controladores.
+- **Responsabilidade:** Gerenciar a interação com o usuário e exibir os dados.
+
+#### 0.1.2.2. Camada de Lógica de Negócios
+- **Componentes:** Serviços, use cases.
+- **Responsabilidade:** Processar dados e aplicar regras de negócios.
+
+#### 0.1.2.3. Camada de Dados
+- **Componentes:** Repositórios, modelos de dados.
+- **Responsabilidade:** Gerenciar o acesso e a persistência dos dados.
+
+### 0.1.3. Motivações de Escolha
+
+#### 0.1.3.1. Princípios e Padrões Utilizados
+- **SOLID:** Garantir que cada módulo tenha uma única responsabilidade, seja aberto para extensão e fechado para modificação, entre outros princípios.
+- **Clean Architecture:** Separar o sistema em camadas distintas para promover a independência e testabilidade.
+
+#### 0.1.3.2. Benefícios
+- **Escalabilidade:** A arquitetura permite adicionar novas funcionalidades com impacto mínimo.
+- **Manutenção:** A separação clara de responsabilidades facilita a manutenção e a evolução do sistema.
+
+#### 0.1.3.3. Decisões Arquiteturais
+- **Tecnologias:** A escolha de tecnologias e frameworks foi feita para alinhar com as necessidades da aplicação e os padrões arquiteturais desejados.
+- **Estrutura das Camadas:** A estrutura em camadas permite uma clara separação entre a lógica de apresentação, negócios e dados.
+
+## 0.2. Conclusão
+
+O diagrama e a explicação fornecem uma visão abrangente da arquitetura utilizada na aplicação, destacando as escolhas de design e os benefícios esperados.
+
 
 # 1.  Página de Teste
 
@@ -211,6 +256,6 @@ A API foi desenvolvida seguindo princípios SOLID e Clean Architecture para gara
        -  Frameworks e Drivers: Incluem a implementação concreta de frameworks e bibliotecas que interagem com o sistema (por exemplo, integração com o Firebase Realtime Database).
       
 
-### 4 Conclusão
+### 4. Conclusão
 Esta documentação fornece uma visão geral completa da aplicação, incluindo a estrutura do repositório, as funcionalidades de cada componente e os padrões de projeto utilizados
 
