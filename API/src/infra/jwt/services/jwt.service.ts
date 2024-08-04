@@ -9,7 +9,7 @@ interface Payload {
   email: string | undefined;
 };
 
-export const generateToken = (payload: Payload, expiresIn: string = '1h'): string => {
+export const generateToken = (payload: Payload, expiresIn: string = '30d'): string => {
   return jwt.sign(payload, secret, { expiresIn: expiresIn });
 };
 
