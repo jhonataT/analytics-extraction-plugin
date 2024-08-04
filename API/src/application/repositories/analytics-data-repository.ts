@@ -24,7 +24,7 @@ export class AnalyticsDataRepository implements IAnalyticsDataRepository {
     return analyticData;
   }
 
-  async findById(id: string): Promise<AnalyticsData | null> {
+  async findById(id: string): Promise<AnalyticsData[]> {
     return await this.firebaseRepository.findById(id);
   }
 

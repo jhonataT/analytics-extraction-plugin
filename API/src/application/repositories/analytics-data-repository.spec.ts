@@ -49,11 +49,11 @@ describe('AnalyticsDataRepository', () => {
       responsibleToken: 'token123',
     }, 'test-id');
 
-    firebaseRepository.findById.mockResolvedValue(data);
+    firebaseRepository.findById.mockResolvedValue([data]);
 
     const result = await repository.findById('test-id');
 
-    expect(result).toBe(data);
+    expect(result).toStrictEqual([data]);
     expect(firebaseRepository.findById).toHaveBeenCalledWith('test-id');
   });
 

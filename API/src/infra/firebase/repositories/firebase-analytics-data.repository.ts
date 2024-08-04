@@ -27,14 +27,21 @@ export class FirebaseAnalyticsDataRepository implements IAnalyticsDataRepository
     });
   }
 
-  async findById(id: string): Promise<AnalyticsData | null> {
-    const analyticsRef = this.dbRef.child(id);
-    const snapshot = await analyticsRef.once('value');
-
-    if (snapshot.exists())
-      return AnalyticsData.fromJSON(snapshot.val());
-
-    return null;
+  async findById(id: string): Promise<AnalyticsData[]> {
+    const tokensRef = this.dbRef;
+    
+    const snapshot = await tokensRef.orderByChild('responsibleToken').equalTo(id).limitToLast(20).once('value');
+    
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      const analyticsDataList: AnalyticsData[] = [];
+      Object.keys(data).forEach((key) => {
+        analyticsDataList.push(AnalyticsData.fromJSON(data[key]));
+      });
+      return analyticsDataList;
+    };
+  
+    return [];
   }
 
   async findAll(): Promise<AnalyticsData[]> {

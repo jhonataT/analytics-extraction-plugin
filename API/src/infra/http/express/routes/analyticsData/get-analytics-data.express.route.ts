@@ -41,8 +41,8 @@ export class GetAnalyticsDataRoute implements Route {
   public getHandler(): (req: Request, res: Response) => Promise<void> {
     return async (req: Request, res: Response) => {
       try {
-        const id = req.query.id as string;
-        const params = { id };
+        const responsible = req.query.id as string;
+        const params = { id: responsible };
 
         const analyticsData: GetAnalyticsDataResponseDto | GetAnalyticsDataResponseDto[] = 
           await this.getAnalyticsDataService.execute(params);

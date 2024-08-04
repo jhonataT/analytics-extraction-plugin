@@ -41,7 +41,7 @@ export class GetAnalyticsData {
         throw new Error('AnalyticsData not found!');
       }
 
-      return { id: savedAnalyticsData.id, ...savedAnalyticsData.props } as GetAnalyticsDataResponse;
+      return savedAnalyticsData.map(item => ({ id: item.id, ...item.props})) as GetAnalyticsDataResponse[];
     } else {
       const allAnalyticsData = await this.analyticsDataRepository.findAll();
 
