@@ -36,7 +36,7 @@ export class BrowserAnalyticsRepository implements IBrowserAnalyticsRepository {
   }
 
   getOrigin(): string {
-    return window.location.hostname;
+    return window.location.origin;
   }
 
   getThemeChanges(): number {

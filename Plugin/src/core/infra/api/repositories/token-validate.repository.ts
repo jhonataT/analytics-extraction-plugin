@@ -23,12 +23,16 @@ export class HT_TOKEN {
  
   private async tokenValidation() {
     try {
-      this.isValidToken = await Api.get('/auth', this.getToken());
+      const response = await Api.get('get-responsible-token', this.getToken());
+      
+      if(!response?.id) {
+        throw new Error('Token is not valid!');
+      }
+      
+      this.isValidToken = true;
     } catch(error) {
       this.isValidToken = false;
     }
-
-    console.log("TOKEN RECEBIDO ", {token: this.token, isValidToken: this.isValidToken});
   }
 };
 
