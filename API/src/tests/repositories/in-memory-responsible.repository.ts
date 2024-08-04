@@ -7,15 +7,16 @@ export class InMemoryResponsibleRepository implements IResponsibleTokenRepositor
   async save(responsibleToken: ResponsibleToken): Promise<ResponsibleToken> {
     this.items.push(responsibleToken);
 
-    const responsibleTokenResponse = 
-      await this.getResponsibleToken(responsibleToken.props.token);
-    
-    return responsibleTokenResponse as ResponsibleToken;
-  }
+    if (responsibleToken.props.token) {
+      const responsibleTokenResponse = await this.getResponsibleToken(responsibleToken.props.token);
+      return responsibleTokenResponse as ResponsibleToken;
+    };
+
+    throw new Error("Token is undefined");
+  };
   
   async getResponsibleToken(token: string): Promise<ResponsibleToken | null> {
     const responsible = this.items.find(responsible => responsible.props.token === token);
-
     return responsible || null;
   };
 };
