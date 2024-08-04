@@ -1,13 +1,13 @@
 export class AnalyticsData {
   device: string;
   os: string;
-  origin: string;
-  themeChanges: number;
+  sourceDomainUrl: string;
+  themeChangeCount: number;
 
-  constructor(device: string, os: string, origin: string, themeChanges: number) {
+  constructor(device: string, os: string, sourceDomainUrl: string, themeChangeCount: number) {
     this.device = device;
     this.os = os;
-    this.origin = origin;
-    this.themeChanges = themeChanges;
+    this.sourceDomainUrl = sourceDomainUrl;
+    this.themeChangeCount = themeChangeCount;
   }
 };

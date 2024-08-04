@@ -12,12 +12,12 @@ const jwtMiddleware = (req: CustomRequest, res: Response, next: NextFunction) =>
 
   try {
     const payload = verifyToken(token as string);
-    const domain = req.body.sourceDomainUrl;
-
+    const domain = req.get('origin');
+    
     if (payload.domain !== domain) {
       return res.status(403).send('Forbidden');
     }
-
+    
     req.responsibleToken = payload;
     next();
   } catch (error) {

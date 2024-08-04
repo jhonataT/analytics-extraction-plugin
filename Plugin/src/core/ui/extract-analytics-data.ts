@@ -1,20 +1,22 @@
 import { BrowserAnalyticsRepository } from "../infra/browser/repositories/browser-anaytics.repository";
+import { AnalyticsDataRepository } from "../repositories/analytics-data.repository";
 import { GetAnalyticsData } from "../usecases/get-analytics-data.usecase";
+import { SaveAnalyticsData } from "../usecases/save-analytics-data.usecase";
 import { changeBtnLabel } from "../utils/changeBtnLabel";
 
+const browserAnalyticsRepository = new BrowserAnalyticsRepository();
+
 interface ExtractedItem {
-  value: 'os' | 'device' | 'origin' | 'themeChanges';
+  value: 'os' | 'device' | 'sourceDomainUrl' | 'themeChangeCount';
   label: string;
 };
 
 const rowsToShow: ExtractedItem[] = [
   { value: 'device', label: 'Dispositivo' },
   { value: 'os', label: 'Sistema Operacional' },
-  { value: 'origin', label: 'Origem (Domínio)' },
-  { value: 'themeChanges', label: 'Mudanças de tema' },
+  { value: 'sourceDomainUrl', label: 'Origem (Domínio)' },
+  { value: 'themeChangeCount', label: 'Mudanças de tema' },
 ];
-
-const browserAnalyticsRepository = new BrowserAnalyticsRepository();
 
 const buttonContainer = document.createElement('div');
 buttonContainer.classList.add('button__container');
@@ -29,21 +31,22 @@ document.body.appendChild(buttonContainer);
 
 const expandingBox = document.createElement('div');
 expandingBox.classList.add('expanding-box');
-
 document.body.appendChild(expandingBox);
 
 const startButton = document.querySelector<HTMLButtonElement>('#starter');
 
 startButton?.addEventListener('click', () => {
   expandingBox.classList.toggle('expanded');
+  
+  const analyticsDataRepository = new AnalyticsDataRepository();
+  const fetchAnalyticsData = new GetAnalyticsData(browserAnalyticsRepository);
+  const analyticsData = fetchAnalyticsData.execute();
+
   if (expandingBox.classList.contains('expanded')) {
     const isValidToken = window.ht?.getIsValidToken();
     changeBtnLabel(startButton, 'Cancelar', 'close_btn');
 
-    if (!isValidToken) {
-      const fetchAnalyticsData = new GetAnalyticsData(browserAnalyticsRepository);
-      const analyticsData = fetchAnalyticsData.execute();
-
+    if (isValidToken) {
       expandingBox.innerHTML = `
         <div class="info__container">
           <h3>Dados que foram extraídos:</h3>
@@ -61,6 +64,34 @@ startButton?.addEventListener('click', () => {
           </button>
         </div>
       `;
+
+      const saveBtnElement = document.querySelector<HTMLButtonElement>('#saved-btn');
+      saveBtnElement?.addEventListener('click', async () => {
+        expandingBox.innerHTML = `
+          <div class="info__container error">
+            <h3>Salvando os dados extraídos...</h3>
+          </div>
+        `;
+  
+        const saveAnalyticsDataService = new SaveAnalyticsData(analyticsDataRepository, analyticsData);
+        const response = await saveAnalyticsDataService.execute();
+
+        let responseMessage = "Dados salvos com sucesso.";
+
+        if(response.error && response.error === 'Too many requests for token') {
+          responseMessage = "Você atingiu o seu limite de requisições. Tente novamente mais tarde."
+        } else if(response.error) {
+          responseMessage = "Erro ao salvar os dados. Tente novamente!"
+        }
+
+        expandingBox.innerHTML = `
+          <div class="info__container error">
+            <h3>${responseMessage}</h3>
+          </div>
+        `;
+
+        changeBtnLabel(startButton, 'Fechar', 'close_btn');
+      });
     } else {
       expandingBox.innerHTML = `
         <div class="info__container error">

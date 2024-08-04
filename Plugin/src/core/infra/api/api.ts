@@ -13,8 +13,6 @@ export class Api {
   }
 
   static async get(endpoint: string, token: string) {
-    console.log("AAAAAAAAAAAAAAAAAAAA", this.serverUrl)
-
     return fetch(`${this.serverUrl}${endpoint}`, {
       headers: this.getHeaders(token),
     }).then(res => res.json());

@@ -11,6 +11,8 @@ import { GetAnalyticsDataRoute } from './analyticsData/get-analytics-data.expres
 import { GetAnalyticsData } from '../../../../application/usecases/analyticsData/get-analytics-data.usecase';
 import { CreateResponsibleTokenRoute } from './responsibleToken/create-responsible-token.express.route';
 import { CreateResponsibleToken } from '../../../../application/usecases/responsibleToken/create-responsible-token.usecase';
+import { GetResponsibleTokenRoute } from './responsibleToken/get-responsible-token.express.route';
+import { GetResponsibleToken } from '../../../../application/usecases/responsibleToken/get-responsible-token.usecase';
 
 const router = express.Router();
 
@@ -30,11 +32,18 @@ const createAnalyticsDataRoute = CreateAnalyticsDataRoute.create(createAnalytics
 const responsibleTokenService = new CreateResponsibleToken(responsibleTokenRepository);
 const createResponsibleTokenRoute = CreateResponsibleTokenRoute.create(responsibleTokenService);
 
+const getResponsibleTokenService = new GetResponsibleToken(responsibleTokenRepository);
+const getResponsibleTokenRoute = GetResponsibleTokenRoute.create(getResponsibleTokenService);
+
 const getAnalyticsDataService = new GetAnalyticsData(analyticsDataRepository);
 const getAnalyticsDataRoute = GetAnalyticsDataRoute.create(getAnalyticsDataService);
 
-router.post('/generate-responsible-token', createResponsibleTokenRoute.getHandler());
+
+router.get('/get-responsible-token', jwtMiddleware, getResponsibleTokenRoute.getHandler());
+// router.post('/generate-responsible-token', createResponsibleTokenRoute.getHandler());
+
 router.post('/collect', jwtMiddleware, rateLimitMiddleware, createAnalyticsDataRoute.getHandler());
+// router.post('/collect', jwtMiddleware, createAnalyticsDataRoute.getHandler());
 router.get('/list', getAnalyticsDataRoute.getHandler());
 
 export { router };
