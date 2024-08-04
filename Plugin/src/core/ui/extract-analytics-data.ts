@@ -4,7 +4,10 @@ import { GetAnalyticsData } from "../usecases/get-analytics-data.usecase";
 import { SaveAnalyticsData } from "../usecases/save-analytics-data.usecase";
 import { changeBtnLabel } from "../utils/changeBtnLabel";
 
-const browserAnalyticsRepository = new BrowserAnalyticsRepository();
+// Applied Singleton Pattern: by @jhonataT
+// Applied Dependency Injection pattern: by @jhonataT
+
+const browserAnalyticsRepository = BrowserAnalyticsRepository.init();
 
 interface ExtractedItem {
   value: 'os' | 'device' | 'sourceDomainUrl' | 'themeChangeCount';
@@ -38,8 +41,8 @@ const startButton = document.querySelector<HTMLButtonElement>('#starter');
 startButton?.addEventListener('click', () => {
   expandingBox.classList.toggle('expanded');
   
-  const analyticsDataRepository = new AnalyticsDataRepository();
-  const fetchAnalyticsData = new GetAnalyticsData(browserAnalyticsRepository);
+  const analyticsDataRepository = AnalyticsDataRepository.init();
+  const fetchAnalyticsData = GetAnalyticsData.init(browserAnalyticsRepository);
   const analyticsData = fetchAnalyticsData.execute();
 
   if (expandingBox.classList.contains('expanded')) {
@@ -73,7 +76,7 @@ startButton?.addEventListener('click', () => {
           </div>
         `;
   
-        const saveAnalyticsDataService = new SaveAnalyticsData(analyticsDataRepository, analyticsData);
+        const saveAnalyticsDataService = SaveAnalyticsData.init(analyticsDataRepository, analyticsData);
         const response = await saveAnalyticsDataService.execute();
 
         let responseMessage = "Dados salvos com sucesso.";

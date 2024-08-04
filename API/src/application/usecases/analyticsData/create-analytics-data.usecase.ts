@@ -15,10 +15,24 @@ type CreateAnalyticsDataResponse = {
 };
 
 export class CreateAnalyticsData {
-  constructor(
+  static instance: CreateAnalyticsData;
+  
+  private constructor(
     private responsibleTokenRepository: IResponsibleTokenRepository,
     private analyticsDataRepository: IAnalyticsDataRepository
   ) {}
+
+  static init(
+    responsibleTokenRepository: IResponsibleTokenRepository,
+    analyticsDataRepository: IAnalyticsDataRepository
+  ) {
+    // Singleton Pattern
+    if(!CreateAnalyticsData.instance) {
+      CreateAnalyticsData.instance = new CreateAnalyticsData(responsibleTokenRepository, analyticsDataRepository);
+    };
+
+    return CreateAnalyticsData.instance;
+  };
 
   async execute({
     device,

@@ -16,9 +16,20 @@ type GetAnalyticsDataResponse = {
 };
 
 export class GetAnalyticsData {
-  constructor(
+  static instance: GetAnalyticsData;
+  
+  private constructor(
     private analyticsDataRepository: IAnalyticsDataRepository
-  ) {}
+  ) {};
+
+  static init(analyticsDataRepository: IAnalyticsDataRepository) {
+    // Singleton Pattern
+    if(!GetAnalyticsData.instance) {
+      GetAnalyticsData.instance = new GetAnalyticsData(analyticsDataRepository);
+    };
+
+    return GetAnalyticsData.instance;
+  };
 
   async execute({
     id

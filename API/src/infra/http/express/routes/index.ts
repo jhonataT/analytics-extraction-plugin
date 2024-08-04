@@ -16,34 +16,31 @@ import { GetResponsibleToken } from '../../../../application/usecases/responsibl
 
 const router = express.Router();
 
-const firebaseResponsibleTokenRepository = new FirebaseResponsibleTokenRepository();
-const firebaseAnalyticsDataRepository = new FirebaseAnalyticsDataRepository();
+// Applied Singleton Pattern: by @jhonataT
+const firebaseResponsibleTokenRepository = FirebaseResponsibleTokenRepository.init();
+const firebaseAnalyticsDataRepository = FirebaseAnalyticsDataRepository.init();
 
-const analyticsDataRepository = new AnalyticsDataRepository(firebaseAnalyticsDataRepository);
-const responsibleTokenRepository = new ResponsibleTokenRepository(firebaseResponsibleTokenRepository);
+const analyticsDataRepository = AnalyticsDataRepository.init(firebaseAnalyticsDataRepository);
+const responsibleTokenRepository = ResponsibleTokenRepository.init(firebaseResponsibleTokenRepository);
 
-const createAnalyticsDataService = new CreateAnalyticsData(
-  responsibleTokenRepository,
-  analyticsDataRepository
-);
+const createAnalyticsDataService = CreateAnalyticsData.init(responsibleTokenRepository, analyticsDataRepository);
 
 const createAnalyticsDataRoute = CreateAnalyticsDataRoute.create(createAnalyticsDataService);
 
-const responsibleTokenService = new CreateResponsibleToken(responsibleTokenRepository);
+const responsibleTokenService = CreateResponsibleToken.init(responsibleTokenRepository);
 const createResponsibleTokenRoute = CreateResponsibleTokenRoute.create(responsibleTokenService);
 
-const getResponsibleTokenService = new GetResponsibleToken(responsibleTokenRepository);
+const getResponsibleTokenService = GetResponsibleToken.init(responsibleTokenRepository);
 const getResponsibleTokenRoute = GetResponsibleTokenRoute.create(getResponsibleTokenService);
 
-const getAnalyticsDataService = new GetAnalyticsData(analyticsDataRepository);
+const getAnalyticsDataService = GetAnalyticsData.init(analyticsDataRepository);
 const getAnalyticsDataRoute = GetAnalyticsDataRoute.create(getAnalyticsDataService);
 
 
+// Applied Middleware Pattern: by @jhonataT
 router.get('/get-responsible-token', jwtMiddleware, getResponsibleTokenRoute.getHandler());
 // router.post('/generate-responsible-token', createResponsibleTokenRoute.getHandler());
-
 router.post('/collect', jwtMiddleware, rateLimitMiddleware, createAnalyticsDataRoute.getHandler());
-// router.post('/collect', jwtMiddleware, createAnalyticsDataRoute.getHandler());
 router.get('/list', getAnalyticsDataRoute.getHandler());
 
 export { router };

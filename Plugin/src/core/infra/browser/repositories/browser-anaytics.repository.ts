@@ -1,11 +1,21 @@
 import { IBrowserAnalyticsRepository } from "./IGetBrowserAnalyticsRepository";
 
 export class BrowserAnalyticsRepository implements IBrowserAnalyticsRepository {
+  static instance: BrowserAnalyticsRepository;
   private themeChangeCount: number = 0;
 
-  constructor() {
+  private constructor() {
     this.observeThemeChanges();
-  }
+  };
+
+  static init() {
+    // Singleton Pattern
+    if(!BrowserAnalyticsRepository.instance) {
+      BrowserAnalyticsRepository.instance = new BrowserAnalyticsRepository();
+    };
+
+    return BrowserAnalyticsRepository.instance;
+  };
 
   getDevice(): string {
     const ua = navigator.userAgent;
@@ -16,7 +26,7 @@ export class BrowserAnalyticsRepository implements IBrowserAnalyticsRepository {
     } else {
       return 'Desktop';
     }
-  }
+  };
 
   getOS(): string {
     const ua = navigator.userAgent;
@@ -33,17 +43,17 @@ export class BrowserAnalyticsRepository implements IBrowserAnalyticsRepository {
     } else {
       return 'Unknown';
     }
-  }
+  };
 
   getOrigin(): string {
     return window.location.origin;
-  }
+  };
 
   getThemeChanges(): number {
     const result = Math.round(this.themeChangeCount / 2);
 
     return result >= 0 ? result : 0;
-  }
+  };
 
   private observeThemeChanges(): void {
     const targetNode = document.getElementById('root');
@@ -65,5 +75,5 @@ export class BrowserAnalyticsRepository implements IBrowserAnalyticsRepository {
     const observer = new MutationObserver(callback);
     observer.observe(targetNode, config);
     console.log('MutationObserver started.');
-  }
-}
+  };
+};

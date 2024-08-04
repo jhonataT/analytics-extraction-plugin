@@ -4,6 +4,7 @@ import { router as apiRouter } from './routes/index';
 import rateLimitMiddleware from '../../rateLimiter/middlewares/rate-limit.middleware';
 
 class ApiExpress {
+  static instance: ApiExpress;
   private app: Application;
 
   private constructor() {
@@ -13,16 +14,20 @@ class ApiExpress {
   };
 
   static create(middlewares: any[]): ApiExpress {
-    const instance = new ApiExpress();
+    // Singleton Pattern
+    if(!ApiExpress.instance) {
+      ApiExpress.instance = new ApiExpress();
+    };
+
     middlewares.forEach(middleware => {
-      instance.app.use(middleware);
+      ApiExpress.instance.app.use(middleware);
     });
-    return instance;
+
+    return ApiExpress.instance;
   };
 
   private setupMiddlewares(): void {
     this.app.use(cors({ origin: 'http://localhost:3001' }));
-    // this.app.use(rateLimitMiddleware);
     this.app.use(express.json());
   };
 

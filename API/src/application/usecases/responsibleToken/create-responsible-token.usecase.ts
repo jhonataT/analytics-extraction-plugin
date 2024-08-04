@@ -12,9 +12,20 @@ type CreateResponsibleTokenResponse = {
 };
 
 export class CreateResponsibleToken {
-  constructor(
+  static instance: CreateResponsibleToken;
+  
+  private constructor(
     private responsibleTokenRepository: IResponsibleTokenRepository,
-  ) {}
+  ) {};
+
+  static init(responsibleTokenRepository: IResponsibleTokenRepository) {
+    // Singleton Pattern
+    if(!CreateResponsibleToken.instance) {
+      CreateResponsibleToken.instance = new CreateResponsibleToken(responsibleTokenRepository);
+    };
+
+    return CreateResponsibleToken.instance;
+  };
 
   async execute({ domain, email }: CreateResponsibleTokenRequest): Promise<CreateResponsibleTokenResponse> {
     

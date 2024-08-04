@@ -3,9 +3,20 @@ import { AnalyticsData } from '../entities/analytics-data.entity';
 import { IBrowserAnalyticsRepository } from '../infra/browser/repositories/IGetBrowserAnalyticsRepository';
 
 export class GetAnalyticsData {
-  constructor(
+  static instance: GetAnalyticsData;
+  
+  private constructor(
     private analytics: IBrowserAnalyticsRepository
   ) {};
+
+  static init(analytics: IBrowserAnalyticsRepository) {
+    // Singleton Pattern
+    if(!GetAnalyticsData.instance) {
+      GetAnalyticsData.instance = new GetAnalyticsData(analytics);
+    };
+
+    return GetAnalyticsData.instance;
+  };
 
   execute(): AnalyticsData {
     const device = this.analytics.getDevice();

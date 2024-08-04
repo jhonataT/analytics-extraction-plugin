@@ -9,9 +9,20 @@ type GetResponsibleTokenResponse = {
 };
 
 export class GetResponsibleToken {
-  constructor(
+  static instance: GetResponsibleToken;
+  
+  private constructor(
     private ResponsibleTokenRepository: IResponsibleTokenRepository
-  ) {}
+  ) {};
+
+  static init(responsibleTokenRepository: IResponsibleTokenRepository) {
+    // Singleton Pattern
+    if(!GetResponsibleToken.instance) {
+      GetResponsibleToken.instance = new GetResponsibleToken(responsibleTokenRepository);
+    };
+
+    return GetResponsibleToken.instance;
+  };
 
   async execute({
     token

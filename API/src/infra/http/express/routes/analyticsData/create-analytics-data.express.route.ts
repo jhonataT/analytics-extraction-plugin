@@ -14,6 +14,8 @@ export type CreateCollectResponseDto = {
 };
 
 export class CreateAnalyticsDataRoute implements Route {
+  static instance: CreateAnalyticsDataRoute;
+  
   private constructor(
     private readonly path: string,
     private readonly method: HttpMethod,
@@ -21,11 +23,16 @@ export class CreateAnalyticsDataRoute implements Route {
   ) {};
 
   public static create(createAnalyticsDataService: CreateAnalyticsData) {
-    return new CreateAnalyticsDataRoute(
-      "/collect",
-      HttpMethod.POST,
-      createAnalyticsDataService
-    );
+    // Singleton Pattern
+    if(!CreateAnalyticsDataRoute.instance) {
+      CreateAnalyticsDataRoute.instance = new CreateAnalyticsDataRoute(
+        "/collect",
+        HttpMethod.POST,
+        createAnalyticsDataService
+      );
+    }
+
+    return CreateAnalyticsDataRoute.instance;
   };
 
   public getHandler(): (req: Request, res: Response) => Promise<void> {
