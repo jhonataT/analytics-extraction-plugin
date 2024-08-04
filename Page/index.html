@@ -17,7 +17,7 @@
       var ht;
       window.addEventListener('load', () => {
         if (window.HT_TOKEN) {
-          ht = new window.HT_TOKEN({
+          ht = window.HT_TOKEN.init({
             token: "<TOKEN>"
           });
         }
