@@ -29,9 +29,9 @@ export class CreateAnalyticsData {
   }: CreateAnalyticsDataRequest): Promise<CreateAnalyticsDataResponse> {
     const responsible = await this.responsibleTokenRepository.getResponsibleToken(responsibleToken);
 
-    // if (!responsible) {
-    //   throw new Error('Responsible token is not valid!');
-    // }
+    if (!responsible) {
+      throw new Error('Responsible token is not valid!');
+    }
 
     const analyticsData = await AnalyticsData.create({
       device,

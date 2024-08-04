@@ -3,7 +3,7 @@ import { IResponsibleTokenRepository } from '../../../application/repositories/I
 import { ResponsibleToken } from '../../../domain/entities/responsible-token.entity';
 
 export class FirebaseResponsibleTokenRepository implements IResponsibleTokenRepository {
-  private dbRef = db.ref('analyticsData');
+  private dbRef = db.ref('responsibleTokens');
 
   async save(responsibleToken: ResponsibleToken): Promise<ResponsibleToken> {
     const newResponsibleRef = this.dbRef.push();
@@ -16,12 +16,16 @@ export class FirebaseResponsibleTokenRepository implements IResponsibleTokenRepo
   };
 
   async getResponsibleToken(token: string): Promise<ResponsibleToken | null> {
-    const responsibleRef = this.dbRef.child(token);
-    const snapshot = await responsibleRef.once('value');
-
-    if (snapshot.exists())
-      return ResponsibleToken.fromJSON(snapshot.val());
-
+    const tokensRef = this.dbRef;
+    
+    const snapshot = await tokensRef.orderByChild('token').equalTo(token).once('value');
+    
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      const key = Object.keys(data)[0];
+      return ResponsibleToken.fromJSON(data[key]);
+    };
+  
     return null;
   };
 };

@@ -1,37 +1,38 @@
 import { Entity } from "../../core/domain/Entity";
+import { generateToken } from "../../infra/jwt/services/jwt.service";
 
 type ResponsibleProps = {
-  token: string;
+  token?: string;
+  domain: string;
   email?: string;
   createdAt?: Date;
   lastAccess?: Date;
-  lastExtractionsCount: number
 };
 
 export class ResponsibleToken extends Entity<ResponsibleProps> {
   private constructor(props: ResponsibleProps, id?: string) {
     super(props, id);
+    this.setToken(generateToken({ domain: props.domain, email: props.email, id: this._id }));
   };
 
   toJSON() {
     return {
       id: this.id,
       token: this.props.token,
+      domain: this.props.domain,
       email: this.props.email,
-      createdAt: this.props.createdAt?.toISOString(),
-      lastAccess: this.props.lastAccess?.toISOString(),
-      lastExtractionsCount: this.props.lastExtractionsCount,
+      createdAt: this.props.createdAt,
+      lastAccess: this.props.lastAccess
     };
   };
 
   static fromJSON(json: any): ResponsibleToken {
     return new ResponsibleToken({
       token: json.token,
+      domain: json.domain,
       email: json.email,
-      createdAt: json.createdAt?.toISOString(),
-      lastAccess: json.lastAccess?.toISOString(),
-      lastExtractionsCount: json.lastExtractionsCount,
-      
+      createdAt: json.createdAt,
+      lastAccess: json.lastAccess,
     }, json.id);
   }
 
@@ -44,4 +45,8 @@ export class ResponsibleToken extends Entity<ResponsibleProps> {
 
     return responsible;
   };
+
+  setToken(newToken: string) {
+    this.props.token = newToken;
+  }
 };

@@ -9,6 +9,8 @@ import { FirebaseResponsibleTokenRepository } from '../../../firebase/repositori
 import { ResponsibleTokenRepository } from '../../../../application/repositories/responsible-token-repository';
 import { GetAnalyticsDataRoute } from './analyticsData/get-analytics-data.express.route';
 import { GetAnalyticsData } from '../../../../application/usecases/analyticsData/get-analytics-data.usecase';
+import { CreateResponsibleTokenRoute } from './responsibleToken/create-responsible-token.express.route';
+import { CreateResponsibleToken } from '../../../../application/usecases/responsibleToken/create-responsible-token.usecase';
 
 const router = express.Router();
 
@@ -25,9 +27,13 @@ const createAnalyticsDataService = new CreateAnalyticsData(
 
 const createAnalyticsDataRoute = CreateAnalyticsDataRoute.create(createAnalyticsDataService);
 
+const responsibleTokenService = new CreateResponsibleToken(responsibleTokenRepository);
+const createResponsibleTokenRoute = CreateResponsibleTokenRoute.create(responsibleTokenService);
+
 const getAnalyticsDataService = new GetAnalyticsData(analyticsDataRepository);
 const getAnalyticsDataRoute = GetAnalyticsDataRoute.create(getAnalyticsDataService);
 
+router.post('/generate-responsible-token', createResponsibleTokenRoute.getHandler());
 router.post('/collect', jwtMiddleware, rateLimitMiddleware, createAnalyticsDataRoute.getHandler());
 router.get('/list', getAnalyticsDataRoute.getHandler());
 

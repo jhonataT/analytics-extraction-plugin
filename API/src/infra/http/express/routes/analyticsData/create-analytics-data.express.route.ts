@@ -7,7 +7,6 @@ type CreateCollectRequestDto = {
   os: string;
   sourceDomainUrl: string;
   themeChangeCount: number;
-  responsibleToken: string;
 };
 
 export type CreateCollectResponseDto = {
@@ -32,8 +31,18 @@ export class CreateAnalyticsDataRoute implements Route {
   public getHandler(): (req: Request, res: Response) => Promise<void> {
     return async (req: Request, res: Response) => {
       try {
+        const responsibleToken = req.headers['authorization']?.replace('Bearer ', '');
+
+        if(!responsibleToken) {
+          res.status(400).json({ error: 'token not found' });
+          return;
+        }
+
         const body: CreateCollectRequestDto = req.body;
-        const analyticsData: CreateCollectResponseDto = await this.createAnalyticsDataService.execute(body);
+        const analyticsData: CreateCollectResponseDto = await this.createAnalyticsDataService.execute({
+          ...body,
+          responsibleToken
+        });
         const responseBody = this.present(analyticsData);
 
         res.status(201).json(responseBody);
