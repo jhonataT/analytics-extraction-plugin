@@ -129,6 +129,7 @@ A arquitetura da aplicação é projetada para promover a escalabilidade, modula
 O diagrama e a explicação fornecem uma visão abrangente da arquitetura utilizada na aplicação, destacando as escolhas de design e os benefícios esperados.
 
 # 2. Como Rodar as Aplicações
+Versão recomendada do NodeJS >= 20.0.0
 
 ## 2.1. Página de Teste
 
