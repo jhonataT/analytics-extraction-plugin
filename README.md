@@ -128,8 +128,6 @@ A arquitetura da aplicação é projetada para promover a escalabilidade, modula
 
 O diagrama e a explicação fornecem uma visão abrangente da arquitetura utilizada na aplicação, destacando as escolhas de design e os benefícios esperados.
 
-
-```markdown
 # 2. Como Rodar as Aplicações
 
 ## 2.1. Página de Teste
@@ -230,7 +228,6 @@ Para rodar os testes em qualquer uma das aplicações, siga os passos abaixo:
    ```bash
    npm test
    ```
-```
 
 Certifique-se de substituir `[diretório_da_aplicação]` pelo diretório correspondente (Page, Plugin, ou API) ao executar os testes.
 
