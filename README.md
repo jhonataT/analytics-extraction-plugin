@@ -480,52 +480,158 @@ A API recebe os dados extraídos e os armazena no Firebase Realtime Database. Fo
   tsconfig.json
 ```
 
-### 5.4. Padrões de Projeto Utilizados e Motivações
+## 5.4. Endpoints Disponíveis
+
+### 5.4.1. **POST /collect**
+
+O endpoint `/collect` é responsável por receber e armazenar dados de analytics extraídos. Este endpoint requer um token de autenticação, que tem um limite de 5 requisições a cada 10 minutos.
+
+#### 5.4.1.1. **Requisição**
+
+- **Método:** `POST`
+- **URL:** `/collect`
+- **Cabeçalhos:** 
+  - `Authorization: Bearer <TOKEN>` - Token JWT para autenticação.
+- **Body:**
+
+  O corpo da requisição deve estar no formato JSON com as seguintes propriedades:
+
+  ```json
+  {
+    "device": "string",
+    "os": "string",
+    "sourceDomainUrl": "string",
+    "themeChangeCount": number
+  }
+  ```
+
+  - **device**: O tipo de dispositivo (ex: "desktop", "mobile").
+  - **os**: O sistema operacional (ex: "Windows", "macOS", "Android", "iOS").
+  - **sourceDomainUrl**: A URL do domínio de origem da página.
+  - **themeChangeCount**: O número de mudanças de tema (dark/light) na página.
+
+#### 5.4.1.2. **Resposta**
+
+- **Código de Sucesso:** `200 OK`
+
+  ```json
+  {
+    "message": "Dados recebidos e armazenados com sucesso."
+  }
+  ```
+
+- **Código de Erro:**
+  - **400 Bad Request** - Se o corpo da requisição não estiver no formato correto.
+  - **401 Unauthorized** - Se o token estiver ausente ou inválido.
+  - **429 Too Many Requests** - Se o limite de requisições (5 por 10 minutos) for excedido.
+
+  ```json
+  {
+    "error": "Mensagem de erro detalhada."
+  }
+  ```
+
+### 5.4.2. **GET /list**
+
+O endpoint `/list` permite recuperar todas as extrações de dados salvas. É um endpoint público e não requer autenticação.
+
+#### 5.4.2.1. **Requisição**
+
+- **Método:** `GET`
+- **URL:** `/list` ou `/list?id=ID_DO_TOKEN`
+
+  - Se nenhum parâmetro `id` for fornecido, o endpoint retorna todas as extrações salvas.
+  - Se um parâmetro `id` for fornecido, o endpoint retorna os 20 últimos itens salvos para o token especificado.
+
+#### 5.4.2.2. **Resposta**
+
+- **Código de Sucesso:** `200 OK`
+
+  - **Sem parâmetro `id`:**
+
+    ```json
+    [
+      {
+        "id": "string",
+        "device": "string",
+        "os": "string",
+        "sourceDomainUrl": "string",
+        "themeChangeCount": number,
+        "createdAt": "string"
+      },
+      ...
+    ]
+    ```
+
+  - **Com parâmetro `id`:**
+
+    ```json
+    [
+      {
+        "id": "string",
+        "device": "string",
+        "os": "string",
+        "sourceDomainUrl": "string",
+        "themeChangeCount": number,
+        "createdAt": "string"
+      },
+      ...
+    ]
+
+    ```
+    - **id**: Identificador único da extração.
+    - **device**: O tipo de dispositivo.
+    - **os**: O sistema operacional.
+    - **sourceDomainUrl**: A URL do domínio de origem da página.
+    - **themeChangeCount**: O número de mudanças de tema.
+    - **createdAt**: Data e hora em que os dados foram armazenados.
+
+## 5.5. Padrões de Projeto Utilizados e Motivações
   
-##### 5.4.1. Repository Pattern:
+##### 5.5.1. Repository Pattern:
  - *Motivação: Separar a lógica de acesso a dados da lógica de negócios, promovendo uma interface clara para acessar e manipular dados.*
  
   - *Exemplo na Aplicação: A classe AnalyticsDataRepository é responsável por interagir com o Firebase Realtime Database, isolando a lógica de acesso a dados da lógica de processamento de dados.*
 
-##### 5.4.2. Middleware:
+##### 5.5.2. Middleware:
  - *Motivação: Modularizar o processamento das requisições HTTP, adicionando funcionalidades como autenticação, validação e logging de forma centralizada.*
  
   - *Exemplo na Aplicação: Middlewares são usados para validar tokens, verificar o limite de acesso e processar as requisições antes que elas cheguem aos controladores.*
   
-##### 5.4.3. Service Layer:
+##### 5.5.3. Service Layer:
  - *Motivação: Encapsular a lógica de negócios em serviços, permitindo que os controladores se concentrem apenas na manipulação das requisições e respostas.*
  
   - *Exemplo na Aplicação: Services são utilizados para processar e manipular dados de analytics, garantindo que a lógica de negócios esteja isolada e facilmente testável.*
   
-### 5.5. Regras de SOLID e Clean Architecture
+### 5.5.5 Regras de SOLID e Clean Architecture
 A API foi desenvolvida seguindo princípios SOLID e Clean Architecture para garantir um código modular, extensível e de fácil manutenção.
 
-##### 5.5.1. Single Responsibility Principle (SRP):
+##### 5.5.6. Single Responsibility Principle (SRP):
  - *Motivação: Cada classe ou módulo deve ter uma única responsabilidade.*
   - *Exemplo na Aplicação:*
 
        -  Controladores lidam apenas com o processamento das requisições.
        -  Serviços lidam com a lógica de negócios.
        
-##### 5.5.2. Open/Closed Principle (OCP):
+##### 5.5.7. Open/Closed Principle (OCP):
  - *Motivação: O código deve ser aberto para extensão, mas fechado para modificação.*
 - *Exemplo na Aplicação:*
  
    - O código da API pode ser estendido com novos endpoints e serviços sem alterar o código existente.
       
-##### 5.5.3. Liskov Substitution Principle (LSP):
+##### 5.5.8. Liskov Substitution Principle (LSP):
  - *Motivação: Subclasses devem poder substituir suas classes base sem alterar o comportamento esperado.*
   - *Exemplo na Aplicação:*
 
        -  Qualquer implementação de repositório deve manter a compatibilidade com a interface esperada, permitindo a substituição das implementações conforme necessário.
        
-##### 5.5.4. Dependency Inversion Principle (DIP):
+##### 5.5.9. Dependency Inversion Principle (DIP):
  - *Motivação: Depender de abstrações, não de implementações concretas.*
  - *Exemplo na Aplicação:*
  
    -  A API depende de abstrações para interagir com os repositórios e serviços, facilitando a substituição e a extensão do sistema sem alterar o código base.
        
-##### 5.5.5. Clean Architecture:
+##### 5.5.10. Clean Architecture:
  - *Motivação: Separar o sistema em camadas distintas para promover a separação de responsabilidades e permitir a flexibilidade de substituir partes do sistema sem afetar outras.*
  - *Exemplo na Aplicação:*
  
